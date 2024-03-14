@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VR App</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+  </head>
+  <body>
+    <a-scene background="color: black">
+      <a-sky
+        src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/sechelt.jpg"
+        rotation="0 -130 0"
+      ></a-sky>
+      <a-entity id="rig" position="0 1 0">
+        <a-camera>
+          <a-cursor
+            color="white"
+            fuse="true"
+            animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 150; from: 0.1 0.1 0.1; to: 1 1 1"
+            animation__fusing="property: scale; startEvents: fusing; easing: easeInCubic; dur: 1500; from: 1 1 1; to: 0.1 0.1 0.1"
+            animation__mouseleave="property: scale; startEvents: mouseleave; easing: easeInCubic; dur: 500; to: 1 1 1"
+          >
+          </a-cursor>
+        </a-camera>
+      </a-entity>
+
+      <!-- Items in the VR environment -->
+      <a-entity id="images-container">
+        <!-- Dynamic images will be added here -->
+      </a-entity>
+
+      <!-- Ground plane -->
+      <!-- <a-plane
+        position="0 -4 -4"
+        rotation="-90 0 0"
+        width="20"
+        height="20"
+        color="#1d1d1d"
+      ></a-plane> -->
+    </a-scene>
+
+    <script src="script.js"></script>
+  </body>
+</html>
