@@ -5,7 +5,7 @@ const LoginPage = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    navigate("/");
+    navigate("/", { replace: true });
   };
 
   return (
