@@ -1,8 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useToast } from "../ui/use-toast";
 
 const SignupPage = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -10,10 +12,26 @@ const SignupPage = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    toast({
+      title: "Error",
+      description: "desc",
+    });
+    return;
 
-    // validate data
-    if (!name || !email || !password) {
-      alert("Please fill all the fields");
+    let desc;
+
+    if (!name || !email || !password) desc = "Please fill all fields";
+
+    if (password.length < 8) desc = "Password must be at least 8 characters long";
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) desc = "Invalid email address";
+
+    if (desc) {
+      toast({
+        title: "Error",
+        description: desc,
+      });
       return;
     }
 

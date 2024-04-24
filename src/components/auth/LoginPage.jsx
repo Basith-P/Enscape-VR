@@ -1,7 +1,10 @@
 import { useNavigate } from "react-router-dom";
+import { useToast } from "../ui/use-toast";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+
+  const { toast } = useToast();
 
   const submitHandler = (e) => {
     e.preventDefault();
