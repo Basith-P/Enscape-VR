@@ -1,41 +1,55 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useToast } from "../ui/use-toast";
+import { auth } from "@/utils/firebase";
+import {
+  browserLocalPersistence,
+  createUserWithEmailAndPassword,
+  setPersistence,
+} from "firebase/auth";
 
 const SignupPage = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-    toast({
-      title: "Error",
-      description: "desc",
-    });
-    return;
 
     let desc;
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!name || !email || !password) desc = "Please fill all fields";
 
     if (password.length < 8) desc = "Password must be at least 8 characters long";
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) desc = "Invalid email address";
 
     if (desc) {
-      toast({
-        title: "Error",
-        description: desc,
-      });
+      // toast({
+      //   title: "Error",
+      //   description: desc,
+      // });
+      alert(desc);
       return;
     }
 
-    navigate("/", { replace: true });
+    try {
+      setIsLoading(true);
+      await setPersistence(auth, browserLocalPersistence);
+      const credentials = await createUserWithEmailAndPassword(auth, email, password);
+      console.log("credentials", credentials);
+      navigate("/", { replace: true });
+    } catch (error) {
+      console.log("error", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -72,6 +86,7 @@ const SignupPage = () => {
                     placeholder="John Doe"
                     required
                     onChange={(e) => setName(e.target.value)}
+                    disabled={isLoading}
                   />
                 </div>
                 <div>
@@ -85,6 +100,7 @@ const SignupPage = () => {
                     placeholder="john@example.com"
                     required
                     onChange={(e) => setEmail(e.target.value)}
+                    disabled={isLoading}
                   />
                 </div>
                 <div>
@@ -98,14 +114,15 @@ const SignupPage = () => {
                     placeholder="********"
                     required
                     onChange={(e) => setPassword(e.target.value)}
+                    disabled={isLoading}
                   />
                 </div>
                 <button
                   className="bg-gradient-to-r dark:text-black font-bold from-blue-500 to-purple-500 shadow-lg mt-6 p-2 text-white rounded-lg w-full hover:scale-105 hover:from-purple-500 hover:to-blue-500 transition duration-300 ease-in-out"
-                  type="submit"
-                  onClick={submitHandler}
+                  type="button"
+                  onClick={isLoading ? null : submitHandler}
                 >
-                  SIGN UP
+                  {isLoading ? "Loading..." : "SIGN UP"}
                 </button>
               </form>
               <div className="flex flex-col mt-4 items-center justify-center text-sm">

@@ -1,11 +1,11 @@
-import Video from "../assets/progressive.mp4";
+import Video from "../assets/output.mp4";
 import Maldives from "../assets/maldives.mp4";
 
 const VrVideo = () => {
   return (
     <a-scene loading-screen="dotsColor: white; backgroundColor: black">
       <a-assets>
-        <video id="video" preload="auto" src={Maldives} autoPlay></video>
+        <video id="video" preload="auto" src={Video} autoPlay></video>
       </a-assets>
       <a-videosphere
         src="#video"

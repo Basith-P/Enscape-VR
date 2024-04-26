@@ -1,14 +1,49 @@
 import { useNavigate } from "react-router-dom";
 import { useToast } from "../ui/use-toast";
+import { useState } from "react";
+import {
+  browserLocalPersistence,
+  setPersistence,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "@/utils/firebase";
 
 const LoginPage = () => {
   const navigate = useNavigate();
 
-  const { toast } = useToast();
+  // const { toast } = useToast();
 
-  const submitHandler = (e) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const submitHandler = async (e) => {
     e.preventDefault();
-    navigate("/", { replace: true });
+
+    let desc;
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !password) desc = "Please fill all fields";
+    else if (password.length < 8) desc = "Password must be at least 8 characters long";
+    else if (!emailRegex.test(email)) desc = "Invalid email address";
+
+    if (desc) {
+      alert(desc);
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      await setPersistence(auth, browserLocalPersistence);
+      const credentials = await signInWithEmailAndPassword(auth, email, password);
+      console.log("credentials", credentials);
+      navigate("/", { replace: true });
+    } catch (error) {
+      console.log("error", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -44,6 +79,8 @@ const LoginPage = () => {
                     type="email"
                     placeholder="Email"
                     required
+                    onChange={(e) => setEmail(e.target.value)}
+                    disabled={isLoading}
                   />
                 </div>
                 <div>
@@ -56,6 +93,8 @@ const LoginPage = () => {
                     type="password"
                     placeholder="Password"
                     required
+                    onChange={(e) => setPassword(e.target.value)}
+                    disabled={isLoading}
                   />
                 </div>
                 {/* <a
@@ -68,10 +107,10 @@ const LoginPage = () => {
                 </a> */}
                 <button
                   className="bg-gradient-to-r dark:text-black font-bold from-blue-500 to-purple-500 shadow-lg mt-6 p-2 text-white rounded-lg w-full hover:scale-105 hover:from-purple-500 hover:to-blue-500 transition duration-300 ease-in-out"
-                  type="submit"
-                  onClick={submitHandler}
+                  type="button"
+                  onClick={isLoading ? null : submitHandler}
                 >
-                  LOG IN
+                  {isLoading ? "Loading..." : "LOG IN"}
                 </button>
               </form>
               <div className="flex flex-col mt-4 items-center justify-center text-sm">
