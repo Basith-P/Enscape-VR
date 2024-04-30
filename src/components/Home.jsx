@@ -35,23 +35,30 @@ const Home = () => {
       loading-screen="dotsColor: white; backgroundColor: black"
     >
       {/* Assets */}
-      {realaxItems.map((item) => (
-        <a-assets key={item.id}>
+      <a-assets>
+        {realaxItems.map((item) => (
           <img id={item.id} src={item.image} />
-        </a-assets>
-      ))}
+        ))}
 
-      {phobiaItems.map((item) => (
-        <a-assets key={item.id}>
+        {phobiaItems.map((item) => (
           <img id={item.id} src={item.image} />
-        </a-assets>
-      ))}
+        ))}
+
+        <img
+          id="bg"
+          src="https://live.staticflickr.com/5767/23825183405_04f3082715_6k.jpg"
+        />
+      </a-assets>
 
       {/* Sky */}
 
       <a-sky
-        src="https://live.staticflickr.com/661/21230969582_37cee367bd_k.jpg"
-        rotation="0 -90 0"
+        // src="https://live.staticflickr.com/661/21230969582_37cee367bd_k.jpg"
+        // src="https://live.staticflickr.com/7220/27729016682_e66db1acba_b.jpg"
+        // src="https://live.staticflickr.com/65535/51352228655_fa5577c3fa_k.jpg"
+        src="#bg"
+        // rotation="0 -110 0"
+        rotation="0 100 0"
       ></a-sky>
       <a-entity id="rig" position="0 1 0">
         <a-camera>
@@ -75,7 +82,7 @@ const Home = () => {
         // font="Oxanium"
         // font="https://cdn.aframe.io/fonts/Exo2SemiBold.fnt"
         width="6"
-        color="white"
+        color="black"
         wrap-count="20"
       ></a-text>
       {/* <a-entity

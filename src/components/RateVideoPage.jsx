@@ -5,7 +5,7 @@ import { useState } from "react";
 const RateVideoPage = () => {
   const location = useLocation();
 
-  const item = location.state?.item ?? realaxItems[0];
+  const item = location.state ?? realaxItems[0];
 
   const [rating, setRating] = useState(4);
 
