@@ -6,6 +6,8 @@ import ImagesGrid from "./ImagesGrid";
 import { useEffect, useState } from "react";
 import { auth } from "@/utils/firebase";
 import { useNavigate } from "react-router-dom";
+import realaxItems from "./data/relax";
+import phobiaItems from "./data/phobia";
 
 const Home = () => {
   const [isAuthChecking, setIsAuthChecking] = useState(true);
@@ -22,72 +24,6 @@ const Home = () => {
     });
   }, []);
 
-  const realaxItems = [
-    {
-      id: "0",
-      title: "Title 1",
-      image: "https://live.staticflickr.com/661/21230969582_37cee367bd_k.jpg",
-    },
-    {
-      id: "2",
-      title: "Title 2",
-      image: "https://live.staticflickr.com/661/21230969582_37cee367bd_k.jpg",
-    },
-    {
-      id: "3",
-      title: "Title 3",
-      image: "https://live.staticflickr.com/661/21230969582_37cee367bd_k.jpg",
-    },
-    {
-      id: "4",
-      title: "Title 4",
-      image: "https://live.staticflickr.com/661/21230969582_37cee367bd_k.jpg",
-    },
-    {
-      id: "5",
-      title: "Title 5",
-      image: "https://live.staticflickr.com/661/21230969582_37cee367bd_k.jpg",
-    },
-    {
-      id: "6",
-      title: "Title 6",
-      image: "https://live.staticflickr.com/661/21230969582_37cee367bd_k.jpg",
-    },
-  ];
-
-  const phobiaItems = [
-    {
-      id: "0",
-      title: "Title 1",
-      image: "https://cdn.aframe.io/360-image-gallery-boilerplate/img/sechelt.jpg",
-    },
-    {
-      id: "2",
-      title: "Title 2",
-      image: "https://cdn.aframe.io/360-image-gallery-boilerplate/img/sechelt.jpg",
-    },
-    {
-      id: "3",
-      title: "Title 3",
-      image: "https://cdn.aframe.io/360-image-gallery-boilerplate/img/sechelt.jpg",
-    },
-    {
-      id: "4",
-      title: "Title 4",
-      image: "https://cdn.aframe.io/360-image-gallery-boilerplate/img/sechelt.jpg",
-    },
-    {
-      id: "5",
-      title: "Title 5",
-      image: "https://cdn.aframe.io/360-image-gallery-boilerplate/img/sechelt.jpg",
-    },
-    {
-      id: "6",
-      title: "Title 6",
-      image: "https://cdn.aframe.io/360-image-gallery-boilerplate/img/sechelt.jpg",
-    },
-  ];
-
   return isAuthChecking ? (
     <div className="flex items-center justify-center h-screen flex-col bg-gray-900 text-white">
       <p className="text-7xl font-sans">ENSCAPE</p>
@@ -98,6 +34,21 @@ const Home = () => {
       vr-mode-ui="enabled: true"
       loading-screen="dotsColor: white; backgroundColor: black"
     >
+      {/* Assets */}
+      {realaxItems.map((item) => (
+        <a-assets key={item.id}>
+          <img id={item.id} src={item.image} />
+        </a-assets>
+      ))}
+
+      {phobiaItems.map((item) => (
+        <a-assets key={item.id}>
+          <img id={item.id} src={item.image} />
+        </a-assets>
+      ))}
+
+      {/* Sky */}
+
       <a-sky
         src="https://live.staticflickr.com/661/21230969582_37cee367bd_k.jpg"
         rotation="0 -90 0"
@@ -139,13 +90,13 @@ const Home = () => {
       <ImagesGrid
         position="-2 0 -3"
         rotation="0 50 0"
-        title="Relax"
+        title="Relaxation"
         items={realaxItems}
       />
       <ImagesGrid
         position="2 0 -3"
         rotation="0 -50 0"
-        title="Phobia"
+        title="Phobia Treatment"
         items={phobiaItems}
       />
     </Scene>

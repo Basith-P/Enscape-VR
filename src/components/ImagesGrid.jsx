@@ -31,8 +31,12 @@ const ImagesGrid = ({ position = "0 0 0", rotation = "0 0 0", title, items }) =>
           // assets
 
           return (
+            // <a-scene key={item.id}>
+            // <a-assets>
+            //   <img id={item.id} src={item.image} />
+            // </a-assets>
             <a-entity key={item.id}>
-              <a-image
+              {/* <a-image
                 key={item.id}
                 // src={`#${item.id}`}
                 src={item.image}
@@ -40,9 +44,20 @@ const ImagesGrid = ({ position = "0 0 0", rotation = "0 0 0", title, items }) =>
                 width={imgWidth}
                 height={imgHeight}
                 look-at="#rig" // This means the image will always face the camera
-                onClick={() => navigate(`/scenes/${item.id}`)}
+                onClick={() => navigate(`/scenes/${item.id}`, { state: { item } })}
+                data-raycastable
+              ></a-image> */}
+
+              <a-image
+                src={`#${item.id}`}
+                position={`${xPos} ${yPos} -5`}
+                width={imgWidth}
+                height={imgHeight}
+                look-at="#rig"
+                onClick={() => navigate(`/scenes/${item.id}`, { state: { item } })}
                 data-raycastable
               ></a-image>
+
               <a-text
                 value={item.title}
                 position={`${xPos} ${yPos - imgHeight / 2 - 0.2} -5`}
@@ -50,6 +65,7 @@ const ImagesGrid = ({ position = "0 0 0", rotation = "0 0 0", title, items }) =>
                 padding="0.1 0.1"
               ></a-text>
             </a-entity>
+            // </a-scene>
           );
         })}
       </a-entity>
