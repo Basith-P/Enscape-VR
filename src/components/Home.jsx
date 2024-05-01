@@ -107,6 +107,17 @@ const Home = () => {
         title="Phobia Treatment"
         items={phobiaItems}
       />
+
+      <a-entity
+        id="refresh-button"
+        geometry="primitive: plane; width: 1.4; height: 0.5"
+        material="color: red; opacity: 0.8"
+        text="value: Logout; align: center; color: white; width: 1; wrapCount: 6"
+        onClick={() => auth.signOut()}
+        position="0 0 -3"
+        rotation="-60 0 0"
+        data-raycastable
+      ></a-entity>
     </Scene>
   );
 };

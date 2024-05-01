@@ -1,6 +1,16 @@
-import React from "react";
+import { auth } from "@/utils/firebase";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AdminHome = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = auth.currentUser;
+    if (!user) navigate("/login", { replace: true });
+    if (user.email !== "admin@enscape.com") navigate("/", { replace: true });
+  }, []);
+
   return (
     <div className="grid grid-cols-2 bg-slate-900 min-h-screen">
       <div className="text-white flex w-full justify-center items-center">

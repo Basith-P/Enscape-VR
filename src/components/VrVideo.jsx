@@ -1,41 +1,22 @@
 import { useLocation, useNavigate } from "react-router-dom";
 
 import stopIcon from "../assets/icons/stop.png";
+import { getStreamUrlFromShareUrl } from "@/utils/functions";
 
 const VrVideo = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const item = location.state.item;
 
-  const shareUrl = item.video;
-
-  const getUrl = async () => {
-    const id = shareUrl.split("/")[5]; // 1dhoeo9ZkIGwcyXk5MMc2KF61dTWGkXFE
-    const url = `https://www.googleapis.com/drive/v3/files/${id}?alt=media&key=${
-      import.meta.env.VITE_GOOGLE_API_KEY
-    }`;
-    console.log(url);
-    return url;
-  };
+  const url = getStreamUrlFromShareUrl(item.video);
 
   return (
     <a-scene loading-screen="dotsColor: white; backgroundColor: black">
       <a-assets>
-        <video
-          id="video"
-          preload="auto"
-          src="https://www.googleapis.com/drive/v3/files/1dhoeo9ZkIGwcyXk5MMc2KF61dTWGkXFE?alt=media&key=AIzaSyC-n3wahQD1KcPaLBKMrpAMWiKXCMEFJvw"
-          autoPlay
-        ></video>
-        {/* <video id="video" preload="auto" src={item.video} autoPlay></video> */}
+        <video id="video" src={url} autoPlay preload="auto"></video>
         <img id="stop" src={stopIcon} />
       </a-assets>
-      <a-videosphere
-        src="#video"
-        rotation="0 -90 0"
-        // projection="equiangular"
-        // stereo="top-bottom"
-      ></a-videosphere>
+      <a-videosphere src="#video" rotation="0 -90 0"></a-videosphere>
 
       <a-entity id="rig" position="0 1 0">
         <a-camera>
@@ -57,6 +38,7 @@ const VrVideo = () => {
         width="0.5"
         height="0.5"
         rotation="-40 -30 0"
+        opacity="0.5"
         onClick={() => navigate("/rate", { state: item })}
         // document.querySelector("#video").pause();
         data-raycastable
