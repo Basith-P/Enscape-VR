@@ -9,7 +9,7 @@ const Button3D = ({
   width = 1,
   wrapCount,
   opacity = 1,
-  buttonColor = "red",
+  buttonColor = "blue",
 }) => {
   wrapCount = wrapCount || title.length;
 
@@ -29,9 +29,8 @@ const Button3D = ({
       ref={buttonRef}
       position={position}
       rotation={rotation}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
       onClick={onClick}
+      // event-set__enter="_event: mouseenter; _target: #button; scale: 1.1 1.1 1.1"
     >
       <a-box
         material={`color: ${buttonColor}; opacity: ${opacity}`}
@@ -40,6 +39,7 @@ const Button3D = ({
         depth="0.1"
         cursor-listener
         data-raycastable
+        event-set__enter="_event: mouseenter; scale: 1.1 1.1 1.1"
       ></a-box>
       <a-text
         value={title}
@@ -48,6 +48,7 @@ const Button3D = ({
         width={width}
         wrap-count={wrapCount}
         position="0 0 0.06"
+        opacity="0.8"
       ></a-text>
     </a-entity>
   );
