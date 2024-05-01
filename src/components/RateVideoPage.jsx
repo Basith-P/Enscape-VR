@@ -1,9 +1,10 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import realaxItems from "./data/relax";
 import { useState } from "react";
 
 const RateVideoPage = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const item = location.state ?? realaxItems[0];
 
@@ -14,7 +15,6 @@ const RateVideoPage = () => {
       <p cla>Congratulations!</p>
       <h1 className="text-3xl mt-6">{item.title}</h1>
       <p className="text-gray-300 mt-6">How would you rate your experience?</p>
-
       <div className="flex items-center mt-2 gap-2">
         {Array.from({ length: 5 }).map((_, index) => (
           <svg
@@ -45,10 +45,18 @@ const RateVideoPage = () => {
           className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
           placeholder="Leave a comment..."
         ></textarea>
+      </div>{" "}
+      <div className="flex justify-between w-full max-w-96">
+        <button
+          className="py-3 px-5 mt-4 bg-gray-950 text-sm font-medium text-center text-white rounded-lg bg-primary-700 sm:w-fit me-2"
+          onClick={() => navigate("/")}
+        >
+          Back to Home
+        </button>
+        <button className="py-3 px-5 mt-4 bg-white text-sm font-medium text-center text-black rounded-lg bg-primary-700 sm:w-fit">
+          Send message
+        </button>
       </div>
-      <button className="py-3 px-5 mt-4 bg-white text-sm font-medium text-center text-black rounded-lg bg-primary-700 sm:w-fit">
-        Send message
-      </button>
     </div>
   );
 };

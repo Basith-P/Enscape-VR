@@ -4,7 +4,9 @@ import VrVideo from "./components/VrVideo";
 import LoginPage from "./components/auth/LoginPage";
 import SignupPage from "./components/auth/SignupPage";
 import RateVideoPage from "./components/RateVideoPage";
-import AdminHome from "./components/admin/AdminHome";
+import UploadVideoPage from "./components/admin/UploadVideo";
+import RequestFeaturePage from "./components/RequestFeaturePage";
+import Dashboard from "./components/admin/Dashboard";
 
 function App() {
   const router = createBrowserRouter([
@@ -29,8 +31,16 @@ function App() {
       element: <RateVideoPage />,
     },
     {
+      path: "/request-feature",
+      element: <RequestFeaturePage />,
+    },
+    {
       path: "/dashboard",
-      element: <AdminHome />,
+      element: <Dashboard />,
+    },
+    {
+      path: "/upload-video",
+      element: <UploadVideoPage />,
     },
   ]);
 

@@ -109,7 +109,7 @@ const Home = () => {
         rotation="-60 0 0"
         width={2.5}
         title="Request Feature"
-        onClick={() => {}}
+        onClick={() => navigate("/request-feature")}
       />
       <Button3D
         id="logout-button"

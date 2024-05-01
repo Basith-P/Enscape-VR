@@ -2,13 +2,15 @@ import { auth } from "@/utils/firebase";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const AdminHome = () => {
+const UploadVideoPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const user = auth.currentUser;
-    if (!user) navigate("/login", { replace: true });
-    if (user.email !== "admin@enscape.com") navigate("/", { replace: true });
+    setTimeout(() => {
+      const user = auth.currentUser;
+      if (!user) navigate("/login", { replace: true });
+      else if (user.email !== "admin@enscape.com") navigate("/", { replace: true });
+    }, 1000);
   }, []);
 
   return (
@@ -92,4 +94,4 @@ const AdminHome = () => {
   );
 };
 
-export default AdminHome;
+export default UploadVideoPage;
