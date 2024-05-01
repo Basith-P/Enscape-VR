@@ -1,24 +1,42 @@
 import { useLocation, useNavigate } from "react-router-dom";
 
 import stopIcon from "../assets/icons/stop.png";
+import playIcon from "../assets/icons/play.png";
+import pauseIcon from "../assets/icons/pause.png";
+
 import { getStreamUrlFromShareUrl } from "@/utils/functions";
+import ImageButton from "./common/ImageButton";
+import { useState } from "react";
 
 const VrVideo = () => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const [isPlaying, setIsPlaying] = useState(true);
+
   const item = location.state.item;
 
   const url = getStreamUrlFromShareUrl(item.video);
+
+  const togglePlay = () => {
+    const video = document.querySelector("#video");
+    if (isPlaying) video.pause();
+    else video.play();
+    setIsPlaying(!isPlaying);
+  };
 
   return (
     <a-scene loading-screen="dotsColor: white; backgroundColor: black">
       <a-assets>
         <video id="video" src={url} autoPlay preload="auto"></video>
         <img id="stop" src={stopIcon} />
+        <img id="play" src={playIcon} />
+        <img id="pause" src={pauseIcon} />
       </a-assets>
+
       <a-videosphere src="#video" rotation="0 -90 0"></a-videosphere>
 
-      <a-entity id="rig" position="0 1 0">
+      <a-entity id="rig" position="0 0 0">
         <a-camera>
           <a-cursor
             color="white"
@@ -32,17 +50,20 @@ const VrVideo = () => {
         </a-camera>
       </a-entity>
 
-      <a-image
+      <ImageButton
+        src={isPlaying ? "#pause" : "#play"}
+        position="-1 0 -2"
+        rotation="-10 0 0"
+        // rotation="-40 30 0"
+        onClick={togglePlay}
+      />
+      <ImageButton
         src="#stop"
         position="1 0 -2"
-        width="0.5"
-        height="0.5"
-        rotation="-40 -30 0"
-        opacity="0.5"
+        // rotation="-40 -30 0"
+        rotation="-10 0 0"
         onClick={() => navigate("/rate", { state: item })}
-        // document.querySelector("#video").pause();
-        data-raycastable
-      ></a-image>
+      />
     </a-scene>
   );
 };

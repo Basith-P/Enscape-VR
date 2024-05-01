@@ -8,6 +8,7 @@ import { auth } from "@/utils/firebase";
 import { useNavigate } from "react-router-dom";
 import realaxItems from "./data/relax";
 import phobiaItems from "./data/phobia";
+import Button3D from "./common/Button3D";
 
 const Home = () => {
   const [isAuthChecking, setIsAuthChecking] = useState(true);
@@ -34,7 +35,8 @@ const Home = () => {
       vr-mode-ui="enabled: true"
       loading-screen="dotsColor: white; backgroundColor: black"
     >
-      {/* Assets */}
+      <a-light type="directional" position="-2 3 -2" intensity="1"></a-light>
+
       <a-assets>
         {realaxItems.map((item) => (
           <img key={item.id} id={item.id} src={item.image} crossOrigin="anonymous" />
@@ -47,20 +49,14 @@ const Home = () => {
         <img
           id="bg"
           src="https://live.staticflickr.com/5767/23825183405_04f3082715_6k.jpg"
+          // src="https://live.staticflickr.com/661/21230969582_37cee367bd_k.jpg"
+          // src="https://live.staticflickr.com/7220/27729016682_e66db1acba_b.jpg"
+          // src="https://live.staticflickr.com/65535/51352228655_fa5577c3fa_k.jpg"
           crossOrigin="anonymous"
         />
       </a-assets>
 
-      {/* Sky */}
-
-      <a-sky
-        // src="https://live.staticflickr.com/661/21230969582_37cee367bd_k.jpg"
-        // src="https://live.staticflickr.com/7220/27729016682_e66db1acba_b.jpg"
-        // src="https://live.staticflickr.com/65535/51352228655_fa5577c3fa_k.jpg"
-        src="#bg"
-        // rotation="0 -110 0"
-        rotation="0 100 0"
-      ></a-sky>
+      <a-sky src="#bg" rotation="0 100 0"></a-sky>
       <a-entity id="rig" position="0 1 0">
         <a-camera>
           <a-cursor
@@ -80,20 +76,10 @@ const Home = () => {
         position="0 5 -5"
         align="center"
         font="kelsonsans"
-        // font="Oxanium"
-        // font="https://cdn.aframe.io/fonts/Exo2SemiBold.fnt"
         width="6"
         color="black"
         wrap-count="20"
       ></a-text>
-      {/* <a-entity
-        position="0 5 -9"
-        geometry="primitive: plane; width: auto; height: auto"
-        material="color: #000"
-        text="color: white; align: center; value: ENSCAPE; width:6; font: kelsonsans; wrapCount: 12;"
-      ></a-entity> */}
-
-      {/* <a-entity text-geometry="value: What's up"></a-entity> */}
 
       <ImagesGrid
         position="-2 0 -3"
@@ -108,16 +94,13 @@ const Home = () => {
         items={phobiaItems}
       />
 
-      <a-entity
-        id="refresh-button"
-        geometry="primitive: plane; width: 1.4; height: 0.5"
-        material="color: red; opacity: 0.8"
-        text="value: Logout; align: center; color: white; width: 1; wrapCount: 6"
-        onClick={() => auth.signOut()}
+      <Button3D
+        id="logout-button"
         position="0 0 -3"
-        rotation="-60 0 0"
-        data-raycastable
-      ></a-entity>
+        rotation="-70 0 0"
+        title="Logout"
+        onClick={() => auth.signOut()}
+      />
     </Scene>
   );
 };
