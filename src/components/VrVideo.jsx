@@ -7,8 +7,7 @@ const VrVideo = () => {
   const location = useLocation();
   const item = location.state.item;
 
-  const shareUrl =
-    "https://drive.google.com/file/d/1dhoeo9ZkIGwcyXk5MMc2KF61dTWGkXFE/view?usp=sharing";
+  const shareUrl = item.video;
 
   const getUrl = async () => {
     const id = shareUrl.split("/")[5]; // 1dhoeo9ZkIGwcyXk5MMc2KF61dTWGkXFE
