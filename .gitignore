@@ -25,3 +25,9 @@ dist-ssr
 
 
 .env
+
+
+src/assets/phobia/
+src/assets/relax/
+src/assets/Nature.mp4
+src/assets/progressive.mp4
