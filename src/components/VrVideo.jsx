@@ -7,10 +7,28 @@ const VrVideo = () => {
   const location = useLocation();
   const item = location.state.item;
 
+  const shareUrl =
+    "https://drive.google.com/file/d/1dhoeo9ZkIGwcyXk5MMc2KF61dTWGkXFE/view?usp=sharing";
+
+  const getUrl = async () => {
+    const id = shareUrl.split("/")[5]; // 1dhoeo9ZkIGwcyXk5MMc2KF61dTWGkXFE
+    const url = `https://www.googleapis.com/drive/v3/files/${id}?alt=media&key=${
+      import.meta.env.VITE_GOOGLE_API_KEY
+    }`;
+    console.log(url);
+    return url;
+  };
+
   return (
     <a-scene loading-screen="dotsColor: white; backgroundColor: black">
       <a-assets>
-        <video id="video" preload="auto" src={item.video} autoPlay></video>
+        <video
+          id="video"
+          preload="auto"
+          src="https://www.googleapis.com/drive/v3/files/1dhoeo9ZkIGwcyXk5MMc2KF61dTWGkXFE?alt=media&key=AIzaSyC-n3wahQD1KcPaLBKMrpAMWiKXCMEFJvw"
+          autoPlay
+        ></video>
+        {/* <video id="video" preload="auto" src={item.video} autoPlay></video> */}
         <img id="stop" src={stopIcon} />
       </a-assets>
       <a-videosphere

@@ -37,16 +37,17 @@ const Home = () => {
       {/* Assets */}
       <a-assets>
         {realaxItems.map((item) => (
-          <img id={item.id} src={item.image} />
+          <img key={item.id} id={item.id} src={item.image} crossOrigin="anonymous" />
         ))}
 
         {phobiaItems.map((item) => (
-          <img id={item.id} src={item.image} />
+          <img key={item.id} id={item.id} src={item.image} crossOrigin="anonymous" />
         ))}
 
         <img
           id="bg"
           src="https://live.staticflickr.com/5767/23825183405_04f3082715_6k.jpg"
+          crossOrigin="anonymous"
         />
       </a-assets>
 
