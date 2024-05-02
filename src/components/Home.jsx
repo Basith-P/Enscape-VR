@@ -2,13 +2,15 @@ import { Scene } from "aframe-react";
 import "aframe";
 import "aframe-text-geometry-component";
 
-import ImagesGrid from "./ImagesGrid";
+import ImagesGrid from "./vr/ImagesGrid";
 import { useEffect, useState } from "react";
 import { auth } from "@/utils/firebase";
 import { useNavigate } from "react-router-dom";
 import realaxItems from "./data/relax";
 import phobiaItems from "./data/phobia";
 import Button3D from "./common/Button3D";
+import RelaxationScences from "./vr/RelaxationScences";
+import PhobiaScenes from "./vr/PhobiaScenes";
 
 const Home = () => {
   const [isAuthChecking, setIsAuthChecking] = useState(true);
@@ -90,18 +92,8 @@ const Home = () => {
         wrap-count="20"
       ></a-text>
 
-      <ImagesGrid
-        position="-6.5 2 -6"
-        rotation="0 50 0"
-        title="RELAXATION"
-        items={realaxItems}
-      />
-      <ImagesGrid
-        position="6.5 2 -6"
-        rotation="0 -50 0"
-        title="PHOBIA THERAPY"
-        items={phobiaItems}
-      />
+      <RelaxationScences />
+      <PhobiaScenes />
 
       <Button3D
         id="logout-button"
