@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import realaxItems from "../data/relax";
 import ImagesGrid from "./ImagesGrid";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "@/utils/firebase";
@@ -14,7 +13,6 @@ const RelaxationScences = () => {
       const scenesData = await getDocs(q);
       const scenes = scenesData.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
       setScenes(scenes);
-      console.log("scenes", scenes);
     } catch (error) {
       console.log("error", error);
     } finally {

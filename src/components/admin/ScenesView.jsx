@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/utils/firebase";
-const ScenesView = (props) => {
+const ScenesView = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [scenes, setScenes] = useState([]);
 
