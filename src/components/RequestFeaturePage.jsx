@@ -1,3 +1,5 @@
+import { auth, db } from "@/utils/firebase";
+import { addDoc, collection } from "firebase/firestore";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -7,19 +9,27 @@ const RequestFeaturePage = () => {
   const [isSending, setIsSending] = useState(false);
   const [message, setMessage] = useState("");
 
-  const submit = () => {
+  const submit = async () => {
     if (isSending) return;
     if (!message) return alert("Please enter a message.");
 
-    setIsSending(true);
+    try {
+      setIsSending(true);
+      const now = new Date().getTime();
+      await addDoc(collection(db, "featureRequests"), {
+        message,
+        createdAt: now,
+        by: auth.currentUser.email,
+      });
 
-    // Simulate a network request
-    setTimeout(() => {
+      alert("Feature request sent successfully");
+      setMessage("");
+    } catch (error) {
+      console.log("error", error);
+      alert("Error sending feature request");
+    } finally {
       setIsSending(false);
-      navigate("/");
-    }, 3000);
-
-    navigate("/");
+    }
   };
 
   return (
@@ -40,6 +50,7 @@ const RequestFeaturePage = () => {
           id="message"
           disabled={isSending}
           rows="6"
+          value={message}
           onChange={(e) => setMessage(e.target.value)}
           className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
         ></textarea>
