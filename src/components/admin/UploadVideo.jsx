@@ -32,7 +32,13 @@ const UploadVideoPage = () => {
     try {
       setIsLoading(true);
       const now = new Date().getTime();
-      await addDoc(collection(db, "videos"), { title, videoUrl, type, createdAt: now });
+      await addDoc(collection(db, "videos"), {
+        title,
+        videoUrl,
+        type,
+        createdAt: now,
+        imageUrl,
+      });
       alert("Video uploaded successfully");
       setTitle("");
       setImageUrl("");

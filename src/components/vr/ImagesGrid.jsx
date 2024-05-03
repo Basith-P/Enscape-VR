@@ -24,17 +24,6 @@ const ImagesGrid = ({
       geometry="primitive: plane; width: 6.6; height: 5"
       material="color: #000000; opacity: 0.7"
     >
-      {/* <a-entity
-        position="-.1 2.5 0"
-        geometry="primitive: plane; width: 6.2; height: 1"
-        material="color: #000000; opacity: 0.5"
-        text={`color: white; align: center; value: ${title}; width:6; wrapCount: 16`}
-      ></a-entity> */}
-
-      {/* <a-assets>
-        <img id="loading" src={loadingImage} />
-      </a-assets> */}
-
       <a-text
         value={title}
         position="-.1 2.05 0.01"
@@ -60,7 +49,8 @@ const ImagesGrid = ({
           return (
             <a-entity key={item.id}>
               <a-image
-                src={`#${item.id}`}
+                src={item.imageUrl}
+                // src={`#${item.id}`}
                 position={`${xPos} ${yPos} 0.01`}
                 width={imgWidth}
                 height={imgHeight}
