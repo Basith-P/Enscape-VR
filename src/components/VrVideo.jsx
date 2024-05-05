@@ -15,8 +15,9 @@ const VrVideo = () => {
   const [isPlaying, setIsPlaying] = useState(true);
 
   const item = location.state.item;
+  console.log("item", item);
 
-  const url = getStreamUrlFromShareUrl(item.video);
+  const url = getStreamUrlFromShareUrl(item.videoUrl);
 
   const togglePlay = () => {
     const video = document.querySelector("#video");
@@ -36,7 +37,7 @@ const VrVideo = () => {
 
       <a-videosphere src="#video" rotation="0 -90 0"></a-videosphere>
 
-      <a-entity id="rig" position="0 0 0">
+      <a-entity id="r ig" position="0 0 0">
         <a-camera>
           <a-cursor
             color="white"

@@ -52,7 +52,7 @@ const Home = () => {
   const [sky, setSky] = useState(backgrounds[0]);
 
   const setRandomSky = () => {
-    const randomIndex = Math.floor(Math.random() * backgrounds.length);
+    let randomIndex = Math.floor(Math.random() * backgrounds.length);
     while (backgrounds[randomIndex].id === sky.id) {
       randomIndex = Math.floor(Math.random() * backgrounds.length);
     }
